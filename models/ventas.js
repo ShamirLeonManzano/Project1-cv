@@ -1,0 +1,22 @@
+import mongoose from 'mongoose'
+
+const ventasSchema = mongoose.Schema({
+    usuario: { type: mongoose.Schema.Types.ObjectId, ref: `Usuario`, require: true },
+    persona: { type: mongoose.Schema.Types.ObjectId, ref: `Persona`, require: true },
+    tipo_comprobante: { type: String, maxlength:20, required: true }, 
+    serie_comprobante: { type: String, maxlength:7, required: true },
+    num_comprobante: { type: String, maxlength:10,required: true },
+    impuesto: { type: Number },
+    total: { type: Number },
+    detalles: [{
+        _id: { type: mongoose.Schema.Types.ObjectId, ref:`Articulo`,required:true},
+        articulo: {type: String, maxlength: 50, required:true},
+        cantidad: { type: Number, required: true },
+        precio: { type: Number, required: true, default: 0 },
+        descuento: { type: Number, default: 0 }
+    }],
+    estado: { type: Number, default: 1 },// 1 => Activo - 0 => inactivo
+    createAt: { type: Date, default: Date.now }
+})
+
+export default mongoose.model('Venta', ventasSchema)

@@ -3,6 +3,11 @@ import cors from 'cors';
 import dbConnection from '../database/config.js';
 import categoria from '../routes/categoria.js'
 import usuario from '../routes/usuario.js'
+import articulo from '../routes/articulos.js';
+import persona from '../routes/personas.js';
+import compra from '../routes/compra.js';
+import venta from '../routes/venta.js'
+
 class server {
     constructor() {
         this.port = process.env.PORT;
@@ -15,8 +20,11 @@ class server {
     routes() {
         this.app.use(`/api/categoria`, categoria)
         this.app.use(`/api/usuario`, usuario)
-
-    }
+        this.app.use(`/api/articulo`,articulo)
+        this.app.use(`/api/persona`,persona)
+        this.app.use(`/api/ingreso`,compra)
+        this.app.use(`/api/venta`,venta)
+    }   
 
     async connectionDb() {
         await dbConnection();
