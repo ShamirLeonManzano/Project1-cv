@@ -12,6 +12,11 @@ const existePersonaByNombre = async (nombre)=>{
     if (existe) throw new Error ('Ya existe una Persona con ese nombre')
 }
 
+const existePersonaByNumDoc = async (numeroDocumento)=>{
+    const existe = await Persona.findOne({numeroDocumento})
+
+    if (existe) throw new Error ('Ya existe una Persona con ese número de documento')
+}
 
 
-export {existePersonaById,existePersonaByNombre}
+export {existePersonaById,existePersonaByNombre,existePersonaByNumDoc}

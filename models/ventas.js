@@ -5,7 +5,7 @@ const ventasSchema = mongoose.Schema({
     persona: { type: mongoose.Schema.Types.ObjectId, ref: `Persona`, require: true },
     tipo_comprobante: { type: String, maxlength:20, required: true }, 
     serie_comprobante: { type: String, maxlength:7, required: true },
-    num_comprobante: { type: String, maxlength:10,required: true },
+    num_comprobante: { type: String, maxlength:10, required: true },
     impuesto: { type: Number },
     total: { type: Number },
     detalles: [{
