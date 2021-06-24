@@ -24,6 +24,9 @@ const ventasControllers = {
                 {num_comprobante: new RegExp(value,'i')}
             ]
         })
+        .populate('usuario','nombre')
+        .populate('persona','nombre')
+        .sort({'nombre':-1})
         
         res.json({
           venta

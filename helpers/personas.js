@@ -18,5 +18,13 @@ const existePersonaByNumDoc = async (numeroDocumento)=>{
     if (existe) throw new Error ('Ya existe una Persona con ese número de documento')
 }
 
+const validarPersonaByTipo = async (tipoPersona) => {
+    if (tipoPersona !== "CLIENTE"){
+        if (tipoPersona !== "PROVEEDOR"){
+            throw new Error (`El servicio requiere uno de estos tipos: CLIENTE o PROVEEDOR`)
+        }
+    }
+}
 
-export {existePersonaById,existePersonaByNombre,existePersonaByNumDoc}
+
+export {existePersonaById,existePersonaByNombre,existePersonaByNumDoc,validarPersonaByTipo}

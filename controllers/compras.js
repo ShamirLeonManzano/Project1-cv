@@ -6,6 +6,7 @@ const increaseStock = async (id, cantidad)=>{
     let {stock}= await Articulo.findById(id);
     stock=parseInt(stock)+parseInt(cantidad)
     await Articulo.findByIdAndUpdate(id,{stock})
+
 }
 const reduceStock=async (id, cantidad)=>{
     let {stock}= await Articulo.findById(id);
@@ -24,6 +25,9 @@ const compraControllers = {
                 {num_comprobante: new RegExp(value,'i')}
             ]
         })
+        .populate('usuario','nombre')
+        .populate('persona','nombre')
+        .sort({'nombre':-1})
         
         res.json({
           compra

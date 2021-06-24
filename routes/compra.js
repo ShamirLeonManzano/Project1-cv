@@ -3,7 +3,7 @@ import { check } from 'express-validator';
 import compraControllers from '../controllers/compras.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
-import {existeCompraById} from '../helpers/compras.js'
+import {existeCompraById, validarArticulosDetalles, validarTipoComprobante, existeArtDetId} from '../helpers/compras.js'
 import {validarRoles} from '../middlewares/validar-rol.js'
 
 const router = Router();
@@ -28,13 +28,11 @@ router.post('/',[
     check('usuario','El usuario es obligatorio').notEmpty(),
     check('persona','La persona es obligatoria').notEmpty(),
     check('tipo_comprobante','El tipo de comprobante es obligatorio').notEmpty(),
+    check('tipo_comprobante').custom(validarTipoComprobante),
     check('serie_comprobante','La serie del comprobante es obligatoria').notEmpty(),
     check('num_comprobante','El numero del comprobante es obligatorio').notEmpty(),
-    // check('detalles','Los detalles son obligatorios').notEmpty(),
-    // check('detalles._id','El ID del articulo es obligatorio').notEmpty(),
-    // check('detalles.articulo','El articulo es obligatorio').notEmpty(),
-    // check('detalles.cantidad','La cantidad es obligatoria').notEmpty(),
-    // check('detalles.precio','El precio es obligatorio').notEmpty(),
+    check('detalles').custom(existeArtDetId),
+    check('detalles').custom(validarArticulosDetalles), 
     validarCampos
 ],compraControllers.compraPost);
 

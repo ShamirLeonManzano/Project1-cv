@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import { check } from 'express-validator'
 import personasControllers from '../controllers/personas.js';
-import { existePersonaById, existePersonaByNombre, existePersonaByNumDoc} from '../helpers/personas.js';
+import { existePersonaById, existePersonaByNombre, existePersonaByNumDoc, validarPersonaByTipo} from '../helpers/personas.js';
 import { validarCampos } from '../middlewares/validar-campos.js'
 import { validarJWT } from '../middlewares/validar-jwt.js'
 import {validarRoles} from '../middlewares/validar-rol.js'
@@ -37,6 +37,7 @@ router.get('/listProveedores/:tipo',[
 router.post('/',[
     validarJWT,
     check('tipoPersona','El tipo de persona es obligatorio').notEmpty(),
+    check('tipoPersona').custom(validarPersonaByTipo),
     check('nombre','El nombre es obligatorio').notEmpty(),
     check('tipoDocumento','El tipo de documento es obligatorio').notEmpty(),
     check('numeroDocumento','El numero de documento es obligatorio').notEmpty(),

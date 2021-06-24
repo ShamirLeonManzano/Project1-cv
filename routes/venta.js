@@ -3,7 +3,7 @@ import { check } from 'express-validator';
 import ventaControllers from '../controllers/ventas.js';
 import { validarCampos } from '../middlewares/validar-campos.js'
 import { validarJWT } from '../middlewares/validar-jwt.js'
-import {existeVentaById, validarArticulosDetalles } from '../helpers/ventas.js'
+import {existeVentaById, validarArticulosDetalles, validarTipoComprobante } from '../helpers/ventas.js'
 import {validarRoles} from '../middlewares/validar-rol.js'
 
 const router = Router();
@@ -28,6 +28,7 @@ router.post('/',[
     check('usuario','El usuario es obligatorio').notEmpty(),
     check('persona','La persona es obligatoria').notEmpty(),
     check('tipo_comprobante','El tipo de comprobante es obligatorio').notEmpty(),
+    check('tipo_comprobante').custom(validarTipoComprobante),
     check('serie_comprobante','La serie del comprobante es obligatoria').notEmpty(),
     check('num_comprobante','El numero del comprobante es obligatorio').notEmpty(),
     check('detalles').custom(validarArticulosDetalles), 
