@@ -29,8 +29,8 @@ const usuarioController = {
     },
 
     usuarioPost: async (req, res) => {
-        const { nombre, email, password, rol } = req.body;
-        const usuario = Usuario({ nombre, email, password, rol });
+        const { nombre, email, password, rol, tipoDocumento, numeroDocumento, direccion, telefono } = req.body;
+        const usuario = Usuario({ nombre, email, password, rol, tipoDocumento, numeroDocumento, direccion, telefono });
 
         const salt = bcryptjs.genSaltSync();
         usuario.password = bcryptjs.hashSync(password, salt)
